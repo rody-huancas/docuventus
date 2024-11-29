@@ -1,7 +1,9 @@
 "use client";
 
-import { cn } from '@/utils';
-import { useState, useMemo } from 'react';
+import { useState, useMemo } from "react";
+
+import { cn } from "@/utils";
+import { Input } from "./ui/Input";
 
 type Technology = {
   name: string;
@@ -10,58 +12,55 @@ type Technology = {
 
 type TechnologySearchProps = {
   availableTechs: Technology[];
-  onSelect: (tech: Technology) => void;
+  selectedTechs : Technology[];
+  onSelect      : (tech: Technology) => void;
 };
 
-export function TechnologySearch({ 
-  availableTechs, 
-  onSelect 
-}: TechnologySearchProps) {
-  const [searchTerm, setSearchTerm] = useState('');
+export function TechnologySearch(props: TechnologySearchProps) {
+  const [searchTerm, setSearchTerm] = useState("");
+  const { availableTechs, onSelect, selectedTechs } = props;
+
+  const filteredTechs = useMemo(() => {
+    const lowerCaseSearchTerm = searchTerm.toLowerCase();
   
-  const processedTechs = useMemo(() => {
-    return availableTechs
-      .map(tech => ({
-        ...tech,
-        displayName: tech.name
-          .replace('-light', '')
-          .replace('-dark', '')
-      }))
-      .filter(tech => 
-        tech.displayName.toLowerCase().includes(searchTerm.toLowerCase())
-      );
-  }, [availableTechs, searchTerm]);
+    return availableTechs.filter((tech) => {
+      const techName = tech.name.toLowerCase();
+      const isAlreadySelected = selectedTechs.some((selected) => selected.name.toLowerCase() === techName);
+  
+      return !isAlreadySelected && techName.includes(lowerCaseSearchTerm);
+    });
+  }, [availableTechs, searchTerm, selectedTechs]);
+  
 
   return (
     <div>
-      <input
-        type="text"
-        placeholder="Search technologies..."
+      <Input
+        label="Search Technologies"
+        placeholder="Start typing to filter..."
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
-        className={cn(
-          "w-full p-2 border rounded",
-          "focus:outline-none focus:ring-2 focus:ring-blue-500"
-        )}
       />
-      <div className="grid grid-cols-4 gap-2 mt-2 max-h-48 overflow-y-auto">
-        {processedTechs.map((tech) => (
-          <button
-            key={tech.name}
-            onClick={() => onSelect(tech)}
-            className={cn(
-              "flex flex-col items-center p-2 border rounded",
-              "hover:bg-blue-100 transition-colors"
-            )}
-          >
-            <img 
-              src={tech.icon} 
-              alt={tech.displayName} 
-              className="w-10 h-10 mb-1" 
-            />
-            <span className="text-xs">{tech.displayName}</span>
-          </button>
-        ))}
+
+      <div className="grid grid-cols-4 xl:grid-cols-6 gap-2 mt-4 max-h-48 w-full overflow-y-auto">
+        {filteredTechs.length > 0 ? (
+          filteredTechs.map((tech) => (
+            <button
+              key={tech.name}
+              onClick={() => onSelect(tech)}
+              className={cn(
+                "flex flex-col items-center p-2 border rounded",
+                "hover:bg-blue-100 transition-colors"
+              )}
+            >
+              <img src={tech.icon} alt={`${tech.name} icon`} className="w-10 h-10 mb-1" />
+              <span className="text-xs">{tech.name}</span>
+            </button>
+          ))
+        ) : (
+          <p className="text-center text-gray-500 col-span-4">
+            No technologies found.
+          </p>
+        )}
       </div>
     </div>
   );

@@ -3,29 +3,25 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios'
 import { TechnologySearch } from '@/components/TechnologySearch'
+import { ReadmePreview } from '@/components/ReadmePreview'
+import { ReadmeCodeView } from '@/components/ReadmeCodeView'
+import { cn } from '@/utils'
+import { Input } from '@/components/ui/Input'
+import { Textarea } from '@/components/ui/Textarea'
 
 type Technology = {
   name: string
   icon: string
 }
 
-type FormData = {
-  title: string
-  description: string
-  about: string
-  contact: string
-}
-
 export default function Home() {
-  const [formData, setFormData] = useState<FormData>({
-    title: '',
-    description: '',
+  const [formData, setFormData] = useState({
+    user: '',
+    profession: '',
     about: '',
-    contact: '',
   })
 
   const [technologies, setTechnologies] = useState<Technology[]>([])
-  const [searchTech, setSearchTech] = useState('')
   const [availableTechs, setAvailableTechs] = useState<Technology[]>([])
   const [activeTab, setActiveTab] = useState<'preview' | 'code'>('preview')
 
@@ -51,20 +47,17 @@ export default function Home() {
   }, [])
 
   const handleInputChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >,
   ) => {
     const { name, value } = e.target
     setFormData((prev) => ({ ...prev, [name]: value }))
   }
 
-  const handleTechnologySearch = () => {
-    const foundTech = availableTechs.find((tech) =>
-      tech.name.toLowerCase().includes(searchTech.toLowerCase()),
-    )
-
-    if (foundTech && !technologies.some((t) => t.name === foundTech.name)) {
-      setTechnologies([...technologies, foundTech])
-      setSearchTech('')
+  const handleTechnologySelect = (tech: Technology) => {
+    if (!technologies.some((t) => t.name === tech.name)) {
+      setTechnologies([...technologies, tech])
     }
   }
 
@@ -72,134 +65,96 @@ export default function Home() {
     setTechnologies(technologies.filter((tech) => tech !== techToRemove))
   }
 
-  const generateReadmeMarkdown = () => {
-    return `# ${formData.title}
-      ## 👤 About Me
-      ${formData.description}
-
-      ${formData.about}
-
-      ## 🚀 Technologies
-      ${technologies.map((tech) => `![${tech.name}](${tech.icon})`).join(' ')}
-
-      ## 📞 Contact
-      ${formData.contact}
-    `
-  }
-
   return (
-    <div className="container mx-auto p-4 grid grid-cols-2 gap-4">
-      <div className="space-y-4">
-        <input
-          type="text"
-          name="title"
-          placeholder="Profile Title"
-          value={formData.title}
-          onChange={handleInputChange}
-          className="w-full p-2 border rounded"
-        />
-        <textarea
-          name="description"
-          placeholder="Short Description"
-          value={formData.description}
-          onChange={handleInputChange}
-          className="w-full p-2 border rounded h-24"
-        />
-        <TechnologySearch availableTechs={availableTechs} onSelect={() => {}} />
-        <textarea
-          name="about"
-          placeholder="More About Me"
-          value={formData.about}
-          onChange={handleInputChange}
-          className="w-full p-2 border rounded h-24"
-        />
-        <div className="flex space-x-2">
-          <input
-            type="text"
-            placeholder="Search Technologies"
-            value={searchTech}
-            onChange={(e) => setSearchTech(e.target.value)}
-            className="flex-grow p-2 border rounded"
-          />
-          <button
-            onClick={handleTechnologySearch}
-            className="bg-blue-500 text-white p-2 rounded"
-          >
-            Add
-          </button>
-        </div>
-        <div className="flex flex-wrap gap-2">
-          {technologies.map((tech, index) => (
-            <div
-              key={index}
-              className="flex items-center bg-gray-200 p-1 rounded"
-            >
-              <img src={tech.icon} alt={tech.name} className="w-6 h-6 mr-2" />
-              <span>{tech.name}</span>
-              <button
-                onClick={() => removeTechnology(tech)}
-                className="ml-2 text-red-500"
-              >
-                ✕
-              </button>
-            </div>
-          ))}
-        </div>
-        <input
-          type="text"
-          name="contact"
-          placeholder="Contact Information"
-          value={formData.contact}
-          onChange={handleInputChange}
-          className="w-full p-2 border rounded"
-        />
-      </div>
+    <div className="w-full grid grid-cols-2 gap-x-10 container mx-auto">
+      <section className="space-y-7 p-10">
+        <h2 className="text-4xl font-black text-gray-700 uppercase">
+          Información
+        </h2>
 
-      <div>
-        <div className="flex mb-4">
-          <button
-            onClick={() => setActiveTab('preview')}
-            className={`p-2 ${
-              activeTab === 'preview' ? 'bg-blue-500 text-white' : 'bg-gray-200'
-            }`}
-          >
-            Preview
-          </button>
-          <button
-            onClick={() => setActiveTab('code')}
-            className={`p-2 ${
-              activeTab === 'code' ? 'bg-blue-500 text-white' : 'bg-gray-200'
-            }`}
-          >
-            Code
-          </button>
-        </div>
-        {activeTab === 'preview' ? (
-          <div className="prose max-w-full">
-            <div
-              dangerouslySetInnerHTML={{
-                __html: `<h1>${formData.title}</h1>
-              <h2>👤 About Me</h2>
-              <p>${formData.description}</p>
-              <p>${formData.about}</p>
-              <h2>🚀 Technologies</h2>
-              ${technologies
-                .map(
-                  (tech) =>
-                    `<img src="${tech.icon}" alt="${tech.name}" width="50" />`,
-                )
-                .join(' ')}
-              <h2>📞 Contact</h2>
-              <p>${formData.contact}</p>`,
-              }}
-            />
+        <div className="space-y-5">
+          <Input
+            label="Nombre"
+            placeholder="Rody"
+            name="user"
+            value={formData.user}
+            onChange={handleInputChange}
+          />
+          <Input
+            label="Profesión"
+            placeholder="Desarrollador Full Stack"
+            name="profession"
+            value={formData.profession}
+            onChange={handleInputChange}
+          />
+          <Textarea
+            label="Descripción"
+            placeholder="Ingrese una descripción"
+            name="about"
+            value={formData.about}
+            onChange={handleInputChange}
+          />
+
+          <TechnologySearch
+            availableTechs={availableTechs}
+            selectedTechs={technologies}
+            onSelect={handleTechnologySelect}
+          />
+          <div className="flex flex-wrap gap-2">
+            {technologies.map((tech, index) => (
+              <div
+                key={index}
+                className={cn(
+                  'flex items-center bg-gray-200 p-1 rounded',
+                  'flex gap-2 items-center',
+                )}
+              >
+                <img src={tech.icon} alt={tech.name} className="w-6 h-6" />
+                <span>{tech.name}</span>
+                <button
+                  onClick={() => removeTechnology(tech)}
+                  className="text-red-500"
+                >
+                  ✕
+                </button>
+              </div>
+            ))}
           </div>
+        </div>
+      </section>
+
+      <section className="p-10">
+        <div className="mb-4 flex justify-end">
+          <div className="inline-flex bg-slate-700 p-2 rounded-full gap-1">
+            <button
+              onClick={() => setActiveTab('preview')}
+              className={cn(
+                'py-1 px-3 rounded-full text-sm',
+                activeTab === 'preview'
+                  ? 'bg-blue-500 text-white'
+                  : 'bg-gray-200',
+              )}
+            >
+              Visualizar
+            </button>
+            <button
+              onClick={() => setActiveTab('code')}
+              className={cn(
+                'py-1 px-3 rounded-full text-sm',
+                activeTab === 'code' ? 'bg-blue-500 text-white' : 'bg-gray-200',
+              )}
+            >
+              Código
+            </button>
+          </div>
+        </div>
+
+        {activeTab === 'preview' ? (
+          <ReadmePreview formData={formData} technologies={technologies} />
         ) : (
-          <pre className="bg-gray-100 p-4 rounded overflow-auto">
-            {generateReadmeMarkdown()}
-          </pre>
+          <ReadmeCodeView formData={formData} technologies={technologies} />
         )}
-      </div>
+      </section>
     </div>
   )
 }
