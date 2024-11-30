@@ -69,5 +69,3 @@ export const InformationForm = (props: InformationFormProps) => {
     </section>
   );
 };
-
-export default InformationForm;

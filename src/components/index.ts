@@ -4,6 +4,7 @@ export * from './ReadmePreview';
 export * from './TechnologySearch';
 export * from './ui/Badge';
 export * from './ui/Button';
+export * from './ui/Chip';
 export * from './ui/Input';
 export * from './ui/Tabs';
 export * from './ui/Textarea';
