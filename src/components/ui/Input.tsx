@@ -1,18 +1,29 @@
+import React from "react";
+
 interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
-  label: string
+  label: string;
 }
 
 export const Input = (props: Props) => {
-  const { label, placeholder } = props
+  const { label, placeholder, name, ...rest } = props;
+
   return (
-    <div className="space-y-2">
-      <label className="text-base font-medium text-gray-700">{label}</label>
+    <div className="w-full max-w-full space-y-2">
+      <label
+        htmlFor={name}
+        className="block text-sm font-medium text-white tracking-wider"
+      >
+        {label}
+      </label>
       <input
-        type="text"
+        id={name}
+        name={name}
         placeholder={placeholder}
-        className="w-full bg-transparent rounded-md border border-stroke py-2.5 px-5 outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-gray-2 disabled:border-gray-2"
-        {...props}
+        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-slate-700 text-gray-700 bg-white/90 transition-all duration-300 placeholder:text-gray-600"
+        {...rest}
       />
     </div>
-  )
-}
+  );
+};
+
+export default Input;

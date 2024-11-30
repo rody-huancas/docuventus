@@ -3,17 +3,14 @@
 import { useState, useMemo } from "react";
 
 import { cn } from "@/utils";
-import { Input } from "./ui/Input";
+import { Input } from "@/components";
+import { ITechnology } from "@/interfaces";
 
-type Technology = {
-  name: string;
-  icon: string;
-};
 
 type TechnologySearchProps = {
-  availableTechs: Technology[];
-  selectedTechs : Technology[];
-  onSelect      : (tech: Technology) => void;
+  availableTechs: ITechnology[];
+  selectedTechs : ITechnology[];
+  onSelect      : (tech: ITechnology) => void;
 };
 
 export function TechnologySearch(props: TechnologySearchProps) {
@@ -30,25 +27,24 @@ export function TechnologySearch(props: TechnologySearchProps) {
       return !isAlreadySelected && techName.includes(lowerCaseSearchTerm);
     });
   }, [availableTechs, searchTerm, selectedTechs]);
-  
 
   return (
     <div>
       <Input
-        label="Search Technologies"
-        placeholder="Start typing to filter..."
+        label="Buscar tecnología"
+        placeholder="Ejm: React"
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
       />
 
-      <div className="grid grid-cols-4 xl:grid-cols-6 gap-2 mt-4 max-h-48 w-full overflow-y-auto">
+      <div className="grid grid-cols-4 xl:grid-cols-6 gap-2 mt-4 max-h-56 w-full overflow-y-auto bg-white/95 rounded-xl p-5">
         {filteredTechs.length > 0 ? (
           filteredTechs.map((tech) => (
             <button
               key={tech.name}
               onClick={() => onSelect(tech)}
               className={cn(
-                "flex flex-col items-center p-2 border rounded",
+                "flex flex-col items-center p-2 border border-gray-400/70 rounded",
                 "hover:bg-blue-100 transition-colors"
               )}
             >
@@ -57,8 +53,8 @@ export function TechnologySearch(props: TechnologySearchProps) {
             </button>
           ))
         ) : (
-          <p className="text-center text-gray-500 col-span-4">
-            No technologies found.
+          <p className="col-span-12 w-full text-center text-gray-500">
+            No se encontró <span className="text-red-300">{searchTerm}</span>
           </p>
         )}
       </div>
