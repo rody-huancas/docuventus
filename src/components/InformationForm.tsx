@@ -47,6 +47,8 @@ export const InformationForm = (props: Props) => {
     title: "Tecnologías",
     content: (
       <Panel2
+        formData={formData}
+        handleInputChange={handleInputChange}
         technologies={technologies}
         handleTechnologySelect={handleTechnologySelect}
         removeTechnology={removeTechnology}
