@@ -20,7 +20,6 @@ export const Badge: React.FC<Props> = ({ technologies, removeTechnology }) => {
             "rounded-full",
             "text-sm",
             "transition-colors duration-200",
-            "shadow-sm",
             "group"
           )}
         >

@@ -2,8 +2,8 @@
 
 import { useState } from 'react'
 import { ChipTabs, InformationForm, ReadmePreview, ReadmeCodeView } from '@/components'
-import { IFormData, ITechnology } from '@/interfaces'
 import { useForm } from '@/hooks'
+import { IFormData, ITechnology } from '@/interfaces'
 
 export default function Home() {
   const [formData, setFormData] = useState<IFormData>({

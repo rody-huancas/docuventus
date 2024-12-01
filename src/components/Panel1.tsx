@@ -1,6 +1,8 @@
 "use client";
 
+/* Components */
 import { Input, Textarea, CustomSectionInput } from "@/components";
+/* Interfaces */
 import { IFormData } from "@/interfaces";
 
 interface Panel1Props {
@@ -29,7 +31,7 @@ export const Panel1 = ({ formData, handleInputChange, onCustomSectionChange }: P
         name="profession"
         value={formData.profession}
         onChange={handleInputChange}
-        placeholder="Profesión"
+        placeholder="Ej: Desarrollador Web"
       />
 
       <Textarea
