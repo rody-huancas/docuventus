@@ -1,13 +1,9 @@
 "use client";
 
-import { useEffect, useState } from "react";
-/* Components */
-import { Input, Textarea, Badge, TechnologySearch } from "@/components";
-/* Hooks */
-import { useTechnologies, useTechnologiesSelection } from "@/hooks";
-/* Interfaces */
+import { useState, useEffect } from "react";
 import { IFormData, ITechnology } from "@/interfaces";
-import { CustomSectionInput } from "./CustomSectionInput";
+import { MultiForm, Panel2, Panel1 } from "@/components";
+import { useTechnologies, useTechnologiesSelection } from "@/hooks";
 
 interface Props {
   formData            : IFormData;
@@ -21,58 +17,42 @@ export const InformationForm = (props: Props) => {
   const { technologies, handleTechnologySelect, removeTechnology } = useTechnologiesSelection();
   const availableTechs = useTechnologies();
 
-  const [customSection, setCustomSection] = useState('');
+  const [customSection, setCustomSection] = useState("");
 
   useEffect(() => {
-    onFormDataChange(prevData => ({ ...prevData, customSection }));
+    onFormDataChange((prevData) => ({ ...prevData, customSection }));
   }, [customSection, onFormDataChange]);
 
   useEffect(() => {
     onTechnologiesChange(technologies);
   }, [technologies, onTechnologiesChange]);
 
-  return (
-    <section className="space-y-6 p-10">
-      <h2 className="text-white/90 text-3xl font-black uppercase text-center">
-        Información
-      </h2>
+  const panel1 = {
+    id: "panel1",
+    title: "Información Básica",
+    content: (
+      <Panel1
+        formData={formData}
+        handleInputChange={handleInputChange}
+        onCustomSectionChange={setCustomSection}
+      />
+    ),
+  };
 
-      <Input
-        label="Título"
-        name="user"
-        value={formData.user}
-        onChange={handleInputChange}
-        placeholder="Ejm: Hola, soy Rody"
-      />
-      <Input
-        label="Profesión"
-        name="profession"
-        value={formData.profession}
-        onChange={handleInputChange}
-        placeholder="Profesión"
-      />
-      <Textarea
-        label="Descripción"
-        name="about"
-        value={formData.about}
-        onChange={handleInputChange}
-        placeholder="Sobre ti"
-      />
-
-      <CustomSectionInput
-        onCustomSectionChange={(section) => setCustomSection(section)}
-      />
-
-      <TechnologySearch
-        availableTechs={availableTechs}
-        selectedTechs={technologies}
-        onSelect={handleTechnologySelect}
-      />
-
-      <Badge
+  const panel2 = {
+    id: "panel2",
+    title: "Tecnologías",
+    content: (
+      <Panel2
         technologies={technologies}
+        handleTechnologySelect={handleTechnologySelect}
         removeTechnology={removeTechnology}
+        availableTechs={availableTechs}
       />
-    </section>
-  );
+    ),
+  };
+  
+  const panels = [panel1, panel2];
+
+  return <MultiForm panels={panels} />;
 };
