@@ -4,19 +4,19 @@ import { useEffect } from "react";
 /* Components */
 import { Input, Textarea, Badge, TechnologySearch } from "@/components";
 /* Hooks */
-import { useForm, useTechnologies, useTechnologiesSelection } from "@/hooks";
+import { useTechnologies, useTechnologiesSelection } from "@/hooks";
 /* Interfaces */
 import { IFormData, ITechnology } from "@/interfaces";
 
-interface InformationFormProps {
+interface Props {
+  formData            : IFormData;
   onFormDataChange    : (formData: IFormData) => void;
   onTechnologiesChange: (technologies: ITechnology[]) => void;
+  handleInputChange   : (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
 }
 
-export const InformationForm = (props: InformationFormProps) => {
-  const { onFormDataChange, onTechnologiesChange } = props;
-
-  const { formData, handleInputChange } = useForm();
+export const InformationForm = (props: Props) => {
+  const { formData, onFormDataChange, onTechnologiesChange, handleInputChange } = props;
   const { technologies, handleTechnologySelect, removeTechnology } = useTechnologiesSelection();
   const availableTechs = useTechnologies();
 
@@ -39,7 +39,7 @@ export const InformationForm = (props: InformationFormProps) => {
         name="user"
         value={formData.user}
         onChange={handleInputChange}
-        placeholder="Nombre"
+        placeholder="Ejm: Hola, soy Rody"
       />
       <Input
         label="Profesión"

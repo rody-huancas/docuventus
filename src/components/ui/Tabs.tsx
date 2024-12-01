@@ -15,7 +15,7 @@ export const ChipTabs = ({ tabs, content }: Props) => {
   const selectedIndex = tabs.indexOf(selected);
 
   return (
-    <div className="flex flex-col gap-10 p-10">
+    <div className="flex flex-col gap-8 p-10">
       <div className="inline-flex bg-slate-800 self-end py-2 px-3 rounded-md">
         {tabs.map((tab) => (
           <Chip

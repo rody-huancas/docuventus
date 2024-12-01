@@ -1,20 +1,14 @@
+import { Dispatch, SetStateAction, useCallback } from "react";
 import { IFormData } from "@/interfaces";
-import { useState, useCallback } from "react";
 
-export const useForm = () => {
-  const [formData, setFormData] = useState<IFormData>({
-    user      : "",
-    profession: "",
-    about     : "",
-  });
-
+export const useForm = (setFormData: Dispatch<SetStateAction<IFormData>>) => {
   const handleInputChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
       const { name, value } = e.target;
       setFormData((prev) => ({ ...prev, [name]: value }));
     },
-    []
+    [setFormData]
   );
 
-  return { formData, handleInputChange };
+  return { handleInputChange };
 };
