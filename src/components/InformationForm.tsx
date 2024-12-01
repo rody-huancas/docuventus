@@ -1,16 +1,17 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 /* Components */
 import { Input, Textarea, Badge, TechnologySearch } from "@/components";
 /* Hooks */
 import { useTechnologies, useTechnologiesSelection } from "@/hooks";
 /* Interfaces */
 import { IFormData, ITechnology } from "@/interfaces";
+import { CustomSectionInput } from "./CustomSectionInput";
 
 interface Props {
   formData            : IFormData;
-  onFormDataChange    : (formData: IFormData) => void;
+  onFormDataChange    : React.Dispatch<React.SetStateAction<IFormData>>;
   onTechnologiesChange: (technologies: ITechnology[]) => void;
   handleInputChange   : (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
 }
@@ -20,9 +21,11 @@ export const InformationForm = (props: Props) => {
   const { technologies, handleTechnologySelect, removeTechnology } = useTechnologiesSelection();
   const availableTechs = useTechnologies();
 
+  const [customSection, setCustomSection] = useState('');
+
   useEffect(() => {
-    onFormDataChange(formData);
-  }, [formData, onFormDataChange]);
+    onFormDataChange(prevData => ({ ...prevData, customSection }));
+  }, [customSection, onFormDataChange]);
 
   useEffect(() => {
     onTechnologiesChange(technologies);
@@ -54,6 +57,10 @@ export const InformationForm = (props: Props) => {
         value={formData.about}
         onChange={handleInputChange}
         placeholder="Sobre ti"
+      />
+
+      <CustomSectionInput
+        onCustomSectionChange={(section) => setCustomSection(section)}
       />
 
       <TechnologySearch

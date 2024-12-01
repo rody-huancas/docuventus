@@ -1,3 +1,6 @@
+export * from './CustomSectionInput';
+export * from './EmojiPicker';
+export * from './FormattingToolbar';
 export * from './InformationForm';
 export * from './ReadmeCodeView';
 export * from './ReadmePreview';

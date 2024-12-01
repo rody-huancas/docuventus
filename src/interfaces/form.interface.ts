@@ -1,5 +1,6 @@
 export interface IFormData {
-  user      : string;
-  profession: string;
-  about     : string;
+  user         : string;
+  profession   : string;
+  about        : string;
+  customSection: string;
 }

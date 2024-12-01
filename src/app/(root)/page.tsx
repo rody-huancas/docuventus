@@ -7,16 +7,16 @@ import { useForm } from '@/hooks'
 
 export default function Home() {
   const [formData, setFormData] = useState<IFormData>({
-    user      : '',
-    profession: '',
-    about     : '',
+    user         : '',
+    profession   : '',
+    about        : '',
+    customSection: ''
   })
 
   const [technologies, setTechnologies] = useState<ITechnology[]>([])
 
   const { handleInputChange } = useForm(setFormData)
 
-  const handleFormDataChange = (data: IFormData) => setFormData(data)
   const handleTechnologiesChange = (tech: ITechnology[]) => setTechnologies(tech)
 
   const tabs = ['Visualizar', 'Código']
@@ -27,16 +27,16 @@ export default function Home() {
 
   return (
     <div className="w-full grid grid-cols-2 gap-x-10 container mx-auto">
-      <section className='p-10'>
+      <section className='py-10'>
         <InformationForm 
           formData={formData}
-          onFormDataChange={handleFormDataChange}
+          onFormDataChange={setFormData}
           onTechnologiesChange={handleTechnologiesChange}
           handleInputChange={handleInputChange}
         />
       </section>
 
-      <section className="py-10">
+      <section className="py-10 w-full">
         <ChipTabs tabs={tabs} content={content}/>
       </section>
     </div>
