@@ -1,4 +1,7 @@
 export * from './CustomSectionInput';
+export * from './EmojiSelector';
+export * from './FormatButtons';
+export * from './HeaderSelector';
 export * from './InformationForm';
 export * from './MultiForm';
 export * from './Panel1';

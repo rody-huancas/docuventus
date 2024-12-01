@@ -1,8 +1,11 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { IFormData, ITechnology } from "@/interfaces";
+/* Components */
 import { MultiForm, Panel2, Panel1 } from "@/components";
+/* Interfaces */
+import { IFormData, ITechnology } from "@/interfaces";
+/* Hooks */
 import { useTechnologies, useTechnologiesSelection } from "@/hooks";
 
 interface Props {

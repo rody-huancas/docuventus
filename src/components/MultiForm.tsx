@@ -1,7 +1,9 @@
 "use client";
 
 import { useState } from "react";
+/* Libraries */
 import { motion, AnimatePresence } from "framer-motion";
+/* Utils */
 import { cn } from "@/utils";
 
 interface FormPanel {
@@ -32,7 +34,7 @@ export const MultiForm = ({ panels }: MultiFormProps) => {
   const progressPercentage = ((currentPanelIndex + 1) / panels.length) * 100;
 
   return (
-    <div className="max-w-2xl mx-auto p-6 bg-transparent shadow-lg rounded-lg relative">
+    <div className="max-w-2xl mx-auto p-6 bg-transparent rounded-lg relative">
       <div className="relative mb-16">
         <div className="absolute w-full h-2 bg-gray-300 rounded-full">
           <motion.div

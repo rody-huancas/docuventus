@@ -1,7 +1,9 @@
 "use client";
 
-import { ITechnology } from "@/interfaces";
+/* Components */
 import { TechnologySearch, Badge } from "@/components";
+/* Interfaces */
+import { ITechnology } from "@/interfaces";
 
 interface Props {
   technologies          : ITechnology[];
