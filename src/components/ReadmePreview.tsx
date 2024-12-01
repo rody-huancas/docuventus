@@ -1,20 +1,17 @@
 'use client'
 
 import { cn } from '@/utils'
-import React from 'react'
+import { IFormData } from '@/interfaces'
 
 type ReadmePreviewProps = {
-  formData: {
-    user: string
-    profession: string
-    about: string
-  }
+  formData    : IFormData
   technologies: Array<{ name: string; icon: string }>
 }
 
 export function ReadmePreview({ formData, technologies }: ReadmePreviewProps) {
+
   return (
-    <div className={cn(`prose max-w-full`)}>
+    <div className={cn("bg-white/95 text-gray-800 p-4 rounded-lg overflow-auto")}>
       <h1>{formData.user}</h1>
 
       <h2>👤 About Me</h2>

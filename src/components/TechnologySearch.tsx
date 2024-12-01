@@ -49,7 +49,6 @@ export function TechnologySearch(props: TechnologySearchProps) {
               )}
             >
               <img src={tech.icon} alt={`${tech.name} icon`} className="w-10 h-10 mb-1" />
-              <span className="text-xs">{tech.name}</span>
             </button>
           ))
         ) : (
