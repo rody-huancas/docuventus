@@ -3,4 +3,6 @@ export interface IFormData {
   profession   : string;
   about        : string;
   customSection: string;
+  linkedin     : string;
+  website      : string;
 }

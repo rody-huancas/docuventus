@@ -1,3 +1,5 @@
+"use client"
+
 import { useState, useCallback } from 'react';
 /* Components */
 import { EmojiSelector, FormatButtons, HeaderSelector } from '@/components';

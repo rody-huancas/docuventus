@@ -6,3 +6,38 @@
 .bg-main {
   @apply absolute top-0 z-[-2] h-screen w-screen bg-neutral-950 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))] overflow-y-scroll;
 }
+
+/* SCROLL */
+::-webkit-scrollbar {
+  width: 0px;
+}
+
+/* HEIGHT */
+.height-screen {
+  height: calc(100dvh - 128px);
+}
+
+/* HERO */
+.floating-icon {
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  border-radius: 0.75rem;
+  animation: float 4s ease-in-out infinite;
+}
+
+.icon {
+  width: 1.5rem;
+  height: 1.5rem;
+  color: #e5e7eb;
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}

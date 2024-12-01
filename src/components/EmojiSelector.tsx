@@ -1,3 +1,5 @@
+"use client"
+
 import { useRef, useEffect } from 'react';
 /* Constants */
 import { EMOJIS } from "@/constants";
