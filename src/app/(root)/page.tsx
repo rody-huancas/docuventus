@@ -1,4 +1,6 @@
+/* Components */
 import { HeroSection } from "@/components";
+/* Icons */
 import { FiBarChart2, FiCalendar, FiFileText, FiUsers, FiLayout, FiMessageSquare } from "react-icons/fi";
 
 export default function Home() {
