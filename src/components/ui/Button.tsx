@@ -12,7 +12,7 @@ export const Button: React.FC<ButtonProps> = ({ children, className, href, to, .
     "ring-offset-background transition-colors focus-visible:outline-none",
     "focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
     "disabled:pointer-events-none disabled:opacity-50",
-    "rounded-md px-8 text-base h-11 bg-white text-gray-700",
+    "rounded-md px-8 text-base h-11 bg-white text-gray-700 w-full sm:w-auto",
     className
   );
 

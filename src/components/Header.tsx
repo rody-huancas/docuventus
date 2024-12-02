@@ -4,12 +4,12 @@ import { FaGithub } from "react-icons/fa6";
 
 export const Header = () => {
   return (
-    <header className="w-full fixed top-10 left-0">
-      <div className="container mx-auto flex justify-between items-center py-4 px-10 bg-white/10 backdrop-blur-lg rounded-xl shadow-lg">
+    <header className="w-full fixed top-10 left-0 px-3 sm:px-0">
+      <div className="container mx-auto flex justify-between items-center py-4 px-3 sm:px-10 bg-white/10 backdrop-blur-lg rounded-xl shadow-lg z-50">
         <div className="relative z-10 flex justify-between items-center w-full">
           <Link href="/" className="rounded-xl flex items-center gap-3 bg-[#1B1B28] p-3">
             <Image src="/logo.svg" alt="Logo Docuventus" width={40} height={40}/>
-            <span className="text-white font-semibold">Docuventus</span>
+            <span className="text-white font-semibold hidden sm:block">Docuventus</span>
           </Link>
 
           <div className="flex items-center gap-5 text-white">
