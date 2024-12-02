@@ -31,7 +31,7 @@ export default function Generate() {
   ]
 
   return (
-    <div className="w-full grid grid-cols-2 gap-x-10 container mx-auto">
+    <div className="w-full grid grid-cols-1 lg:grid-cols-2 gap-x-10 container mx-auto">
       <section className='py-10'>
         <InformationForm 
           formData={formData}

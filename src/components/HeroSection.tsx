@@ -4,7 +4,7 @@ import { FiFileText } from "react-icons/fi";
 
 export const HeroSection = () => {
   return (
-    <div className="max-w-3xl mx-auto text-center relative z-10 space-y-14">
+    <div className="max-w-3xl mx-auto text-center relative z-20 space-y-14">
       <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight mb-6">
         Personaliza tu GitHub
         <span className="block">en Minutos</span>
