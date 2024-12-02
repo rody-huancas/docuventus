@@ -28,13 +28,13 @@ export function ReadmePreview({ formData, technologies }: ReadmePreviewProps) {
       <ReactMarkdown
         rehypePlugins={[rehypeRaw]}
         components={{
-          img: ({ node, ...props }) => (
+          img: ({ ...props }) => (
             <img
               {...props}
               className="inline-block m-1"
               style={{ maxWidth: "40px", maxHeight: "40px" }}
             />
-          ),
+          )
         }}
       >
         {markdownContent}
