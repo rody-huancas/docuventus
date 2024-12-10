@@ -23,7 +23,7 @@ export const Panel2 = (props: Props) => {
         Stack
       </h2>
 
-      <Input
+      {/* <Input
         label="Linkedin"
         name="linkedin"
         value={formData.linkedin}
@@ -37,7 +37,7 @@ export const Panel2 = (props: Props) => {
         value={formData.website}
         onChange={handleInputChange}
         placeholder="Ej: www.miweb.com"
-      />
+      /> */}
 
       <TechnologySearch
         availableTechs={availableTechs}
