@@ -1,11 +1,7 @@
 import { URL_ICONS } from "@/config";
 import { IFormData } from "@/interfaces";
 
-export const generateReadmeMarkdown = (
-  template: string,
-  formData: IFormData,
-  technologies: Array<{ name: string }>
-): string => {
+export const generateReadmeMarkdown = ( template: string, formData: IFormData, technologies: Array<{ name: string }> ): string => {
   if (!template) return "";
 
   let markdown = template;
@@ -55,22 +51,15 @@ export const generateReadmeMarkdown = (
   return markdown;
 };
 
-export const downloadMarkdownFile = (
-  content: string,
-  fileName: string = "README.md"
-) => {
-  const blob = new Blob([content], { type: "text/markdown" });
-  const link = document.createElement("a");
-  link.href = URL.createObjectURL(blob);
-  link.download = fileName;
-  link.click();
+export const downloadMarkdownFile = ( content: string, fileName: string = "README.md" ) => {
+  const blob          = new Blob([content], { type: "text/markdown" });
+  const link          = document.createElement("a");
+        link.href     = URL.createObjectURL(blob);
+        link.download = fileName;
+        link.click();
 };
 
-export const copyToClipboard = async (
-  content: string,
-  onSuccess: () => void,
-  onError: () => void
-) => {
+export const copyToClipboard = async ( content: string, onSuccess: () => void, onError: () => void ) => {
   try {
     await navigator.clipboard.writeText(content);
     onSuccess();
